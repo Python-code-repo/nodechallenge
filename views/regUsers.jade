@@ -1,0 +1,64 @@
+block head
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+
+    style.
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 469px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+
+block content
+    html
+        head
+        body
+            #login
+                //- h3.text-center.text-white.pt-5 Login form
+                .container
+                    #login-row.row.justify-content-center.align-items-center
+                        #login-column.col-md-6
+                            #login-box.col-md-12
+                                form#login-form.form(action='' method='post')
+                                    h3.text-center.text-info Registration
+                                    input(type="hidden" value=roleCan name="roleCan")
+                                    .form-group
+                                        label.text-info(for='Name') Name:
+                                        br
+                                        input#username.form-control(type='text' name='Name')
+                                    .form-group
+                                        label.text-info(for='Gender') Gender:
+                                        br
+                                        select#password.form-control(name='Gender')
+                                            option(value='Male') Male
+                                            option(value='Female') Female
+
+                                    .form-group
+                                        label.text-info(for='Age') Age:
+                                        br
+                                        input#password.form-control(type='number' name='Age')
+                                    .form-group
+                                        label.text-info(for='Contact number') Contact number:
+                                        br
+                                        input#password.form-control(type='number' name='Contactnumber')
+                                    
+                                        br
+                                        input.btn.btn-info.btn-md.float-right(type='submit' name='submit' value='submit')
+                                        input.btn.btn-info.btn-md.float-right.mr-1(type='button' name='goback' value='Go Back' onclick="location.href = '/';")
+                                    //- #register-link.text-right
+                                    //-     a.text-info(href='#') Register here
