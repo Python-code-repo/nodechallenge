@@ -10,3 +10,5 @@ To Run the code follow the steps
 ENV folder:
 
 --> config/env/development.js
+
+Tech Used : Jade,Jquery,NodeJS,MongoDB.
