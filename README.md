@@ -3,7 +3,7 @@ Node Challenge code
 
 To Run the code follow the steps
 
-1. npm install (Under "nodejsChallenge" folder)
+1. npm install (Inside "nodejsChallenge" folder)
 2. URL -> http://localhost/
 
 
