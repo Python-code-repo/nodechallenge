@@ -1,0 +1,113 @@
+block head
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='/jquery.js')
+    link(href='/css/jquery.datetimepicker.min.css', rel='stylesheet')
+    script(src='/js/jquery.datetimepicker.full.min.js')
+
+
+    style.
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 469px;
+            border: 1px solid #9C9C9C;
+            background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+
+block content
+    html
+        head
+        body
+            #login
+                //- h3.text-center.text-white.pt-5 Login form
+                .container
+                    #login-row.row.justify-content-center.align-items-center
+                        #login-column.col-md-6
+                            #login-box.col-md-12
+                                form#login-form.form(action='' method='post')
+                                    h3.text-center.text-info Registration
+                                    input#docDetails(type="hidden" value=doctors name="docDetails")
+                                    input#oppointment(type="hidden" value=oppointment name="oppointment")
+                                    .form-group
+                                        label.text-info(for='fromDate') Date:
+                                        br
+                                        input#Date.form-control(type='text' name="Date")
+
+                                    .form-group
+                                        label.text-info(for='fromTime') From Time:
+                                        br
+                                        input#fromTime.form-control(type='text' name="fromTime")
+                                    .form-group
+                                        label.text-info(for='toDate') To Time:
+                                        br
+                                        input#toTime.form-control(type='text' name="toTime")
+                                    .form-group
+                                        label.text-info(for='Doctor') Doctor:
+                                        br
+                                        select#password.form-control(name='Doctor')
+                                            each doc in doctors
+                                                option(value=doc._id) #{doc.name}
+                                        br
+                                        input.btn.btn-info.btn-md.float-right(type='submit' name='submit' value='submit')
+                                        //- input.btn.btn-info.btn-md.float-right.mr-1(type='button' name='goback' value='Go Back' onclick="location.href = '/';")
+
+block pagescripts
+    script.
+        let currenDate =new Date();
+        jQuery(function(){
+            jQuery('#Date').datetimepicker({
+                format:'d/m/Y',
+                minDate:currenDate,
+                timepicker:false,
+                defaultSelect:true,
+                onSelectDate:function(ct,$i){
+                    changeCodDetails(ct);
+                }
+            });
+            jQuery('#fromTime').datetimepicker({
+                format:'H:i',
+                onSelectTime:function( ct ){
+                    //- let ctValue = jQuery('#fromTime').val().split(':');
+                    //- ctValue = (ParseInt(ctValue[0])+1)+":"+ctValue[1];
+                    //- ct = ct.setHours(ct.getHours()+1)
+                    this.setOptions({
+                        minTime:jQuery('#toTime').val()?jQuery('#fromTime').val():false,
+                        //- maxTime:jQuery('#toTime').val()?jQuery('#fromTime').val():false
+                    })
+                },
+                datepicker:false,
+                defaultSelect:true
+            });
+            jQuery('#toTime').datetimepicker({
+                format:'H:i',
+                minTime:jQuery('#fromTime').val(),
+                //- onSelectTime:function( ct ){
+                //-     this.setOptions({
+                //-         minTime:jQuery('#fromTime').val()?jQuery('#toTime').val():false,
+                //-         maxTime:jQuery('#fromTime').val()?jQuery('#toTime').val():false
+                //-     })
+                //- },
+                datepicker:false,
+                defaultSelect:true
+            });
+        });        
+    script.
+        function changeCodDetails(ct){
+            let docs = $("#oppointment").val();
+            for(let i=0;i<docs.length;i++){
+                
+            }
+        }

@@ -1,0 +1,94 @@
+block head
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.min.js')
+
+    style.
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #17a2b8;
+            height: 100vh;
+        }
+        #login .container #login-row #login-column #login-box {
+            margin-top: 120px;
+            max-width: 600px;
+            height: 320px;
+            //- border: 1px solid #9C9C9C;
+            //- background-color: #EAEAEA;
+        }
+        #login .container #login-row #login-column #login-box #login-form {
+            padding: 20px;
+        }
+        #login .container #login-row #login-column #login-box #login-form #register-link {
+            margin-top: -85px;
+        }
+//- (style="border: 1px solid #9C9C9C;background-color: #EAEAEA;")
+block content
+    html
+        head
+        body
+            #login
+                h3.text-center.text-white.pt-5 #{pageTitle}
+                .container
+                    #login-row.row.justify-content-center.align-items-center
+                        #login-column.col-md-6
+                            #login-box.col-md-12
+                                .row
+                                    .col-md-12
+                                        if(roleCan == "PAT")
+                                            button.btn.btn-primary.mb-1.float-right(type='button' onclick="location.href = '/user/todolist/doctor/"+mydetails._id+"';") To Do
+
+                                        button.btn.btn-primary.mb-1.float-right.mr-1(type='button' onclick="location.href = '/user/regusers/"+roleCan+"';") Reg. #{whoisthis}
+                                .row
+                                    table.table.table-dark
+                                        thead
+                                            tr
+                                                th(scope='col') #
+                                                th(scope='col') Name
+                                                th(scope='col') Gender
+                                                th(scope='col') Age
+                                                th(scope='col') Contact number
+                                                th(scope='col') Role
+                                                if(roleCan == "DOC")
+                                                    th(scope='col') Block
+                                        tbody
+                                            each user in users
+                                                tr(id="row"+user._id)
+                                                    th(scope='row') #{user.slno}
+                                                    td #{user.name}
+                                                    td #{user.gender}
+                                                    td #{user.Age}
+                                                    td #{user.contactNumber}
+                                                    td #{user.role}
+                                                    if(roleCan == "DOC")
+                                                        td 
+                                                            button.btn.btn-danger(type='button' onclick="blockUSer('"+user._id+"')") Block
+
+
+
+
+block pagescripts
+    script.
+        function blockUSer(userId){
+            console.log("entered")
+            $.ajax({
+                    url: "/user/blockUser/"+userId,
+                    success: function (result) {
+                    $( "row"+userId ).remove();
+                      $('body').notify({
+                            message: 'User Removed',
+                            type: 'success'
+                        });
+                    },
+                    error: function (err) {
+                        console.log(err)
+                        $('body').notify({
+                            message: 'Something went wrong !',
+                            type: 'danger'
+                        });
+                    }
+                })
+        }
